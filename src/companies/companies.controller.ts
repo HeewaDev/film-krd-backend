@@ -34,5 +34,6 @@ async UpdateCompany(@Param('id', ParseIntPipe) id: number, updateCompaniesDto: U
 @Delete('id')
 async DeleteCompany(@Param('id', ParseIntPipe ) id: number) {
     return await this.companiesService.deleteCompany(id)
-}
+} 
+
 }
