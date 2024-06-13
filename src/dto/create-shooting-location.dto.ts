@@ -20,8 +20,8 @@ export class CreateShootingLocationsDto {
     @IsString()
     location?: string;
 
-    @IsObject()
-    img: string;
+    @IsString()
+    img?: string;
 
     
 }
