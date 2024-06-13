@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
 import { CompaniesService } from './companies.service';
 import { CreateCompaniesDto } from 'src/dto/create-companies.dto';
 import { UpdateCompaniesDto } from 'src/dto/update-companies.dto';
@@ -14,8 +14,8 @@ async GetAllCompanies() {
 }
 
 
-@Get('id')
-async GetCompaniesById(@Param() id: number){
+@Get(':id')
+async GetCompaniesById(@Param('id', ParseIntPipe) id: number){
     return await this.companiesService.getCompanyById(id)
 }
 
@@ -26,14 +26,18 @@ async CreateCompany(@Body() createCompaniesDto: CreateCompaniesDto){
 
 }
 
-@Put('id')
-async UpdateCompany(@Param('id', ParseIntPipe) id: number, updateCompaniesDto: UpdateCompaniesDto) {
-    return await this.companiesService.updateCompany(id, updateCompaniesDto)
+@Put(':id')
+async UpdateCompany(@Param('id', ParseIntPipe) id: number, @Body() updateCompaniesDto: UpdateCompaniesDto) {
+    console.log('updateCompaniesDto:', updateCompaniesDto); // Check the contents of updateCompaniesDto
+    return await this.companiesService.updateCompany(id, updateCompaniesDto);
 }
 
-@Delete('id')
-async DeleteCompany(@Param('id', ParseIntPipe ) id: number) {
+
+@Delete(':id')
+async DeleteCompany(@Param('id', ParseIntPipe ) id: number, @Body(ValidationPipe) UpdateCompany: UpdateCompaniesDto) {
     return await this.companiesService.deleteCompany(id)
 } 
 
 }
+
+

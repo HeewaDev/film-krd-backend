@@ -2,6 +2,7 @@ import { Body, Delete, Get, Injectable, NotFoundException, Post, Put } from '@ne
 import { NotFoundError } from 'rxjs';
 import { CreateCompaniesDto } from 'src/dto/create-companies.dto';
 import { UpdateCompaniesDto } from 'src/dto/update-companies.dto';
+
 import { SupabaseService } from 'src/service/supabase.service';
 
 @Injectable()
@@ -50,43 +51,44 @@ async getById(id: number) {
 }
 
 
-async create(CreateCompaniesDto: any){
+async create(createCompaniesDto: CreateCompaniesDto ){
 try {
     const {data, error} = await this.supabaseService
     .getClient()
     .from('companies')
-    .insert(CreateCompaniesDto)
+    .insert(createCompaniesDto)
 
     if(error){
         throw new Error(error.message)
     }
     return data;
 } catch (error) {
-    throw new error
+    throw new Error('Failed to create company')
 }}
 
 
 
-async update(id: number, UpdateCompaniesDto: any){
+async update(id: number, UpdateCompany: UpdateCompaniesDto) {
+    
 
     try {
-        
-        const {data, error} = await this.supabaseService
-        .getClient()
-        .from('companies')
-        .update(UpdateCompaniesDto)
-        .eq('id', id)
+        const { data, error } = await this.supabaseService
+            .getClient()
+            .from('companies')
+            .update(UpdateCompany)
+            .eq('id', id);
 
-
-        if(error){
-        throw new Error(error.message)
+        if (error) {
+            throw new Error(error.message);
         }
         return data;
     } catch (error) {
-        throw new error
+        throw new Error('Failed to update company');
     }
-
 }
+
+
+
 
 
 async delete(id: number){
@@ -97,8 +99,11 @@ async delete(id: number){
         .delete()
         .eq('id',id)
     } catch (error) {
-        
+        throw new Error('Failed to delete company')
     }
 }
 
+
 }
+
+

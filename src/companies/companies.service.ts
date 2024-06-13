@@ -23,8 +23,8 @@ export class CompaniesService {
         return await this.companiesRepository.create(createCompaniesDto);
     }
 
-    async updateCompany(id: number, updateCompaniesDto: UpdateCompaniesDto) {
-        return await this.companiesRepository.update(id, updateCompaniesDto);
+    async updateCompany(id: number, updateCompanies: UpdateCompaniesDto) {
+        return await this.companiesRepository.update(id, updateCompanies);
     }
 
     async deleteCompany(id: number) {

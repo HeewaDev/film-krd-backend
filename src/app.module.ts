@@ -9,7 +9,7 @@ import { CrewModule } from './crew/crew.module';
 import { FilmCastsModule } from './film_casts/film_casts.module';
 import { FilmCrewModule } from './film_crew/film_crew.module';
 import { FilmCompaniesModule } from './film_companies/film_companies.module';
-import { FilmLocationModule } from './film_location/film_location.module';
+import { FilmLocationModule } from './film_location/shooting_location.module';
 import { FilmsModule } from './films/films.module';
 import { NotesModule } from './notes/notes.module';
 import { ShootingLocationsModule } from './shooting_locations/shooting_locations.module';
