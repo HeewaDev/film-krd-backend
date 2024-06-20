@@ -14,10 +14,12 @@ import { FilmsModule } from './films/films.module';
 import { NotesModule } from './notes/notes.module';
 import { ShootingLocationsModule } from './shooting_locations/shooting_locations.module';
 import { SupabaseModule } from './service/supabase.module';
+import { FilmsClientService } from './films.client.service';
 
 @Module({
   imports: [CastsModule,  CompaniesModule, CrewModule, FilmCastsModule, FilmCrewModule, FilmCompaniesModule, FilmLocationModule, FilmsModule, NotesModule, ShootingLocationsModule, SupabaseModule],
   controllers: [AppController],
-  providers: [AppService, SupabaseService, CrewService],
+  providers: [AppService, SupabaseService, CrewService, FilmsClientService],
+  exports: [FilmsClientService],
 })
 export class AppModule {}
