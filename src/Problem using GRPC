@@ -1,0 +1,67 @@
+The file that has the error occured is films I had proto errors at first solved now it's within imports and I think it's within tsconfig.json occurs because it's responible for importing the modules.
+
+
+Error: Cannot find module 'src/service/supabase.service'
+Require stack:
+- /Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.repository.js
+- /Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.service.js
+- /Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.controller.js
+- /Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.module.js
+- /Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/main.films.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1145:15)
+    at Module._load (node:internal/modules/cjs/loader:986:27)
+    at Module.require (node:internal/modules/cjs/loader:1233:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.repository.js:15:28)
+    at Module._compile (node:internal/modules/cjs/loader:1358:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+    at Module.load (node:internal/modules/cjs/loader:1208:32)
+    at Module._load (node:internal/modules/cjs/loader:1024:12)
+    at Module.require (node:internal/modules/cjs/loader:1233:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.repository.js',
+    '/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.service.js',
+    '/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.controller.js',
+    '/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/films.module.js',
+    '/Users/golden/Desktop/FilmKRD/film-krd backend/src/films/dist/main.films.js'
+  ]
+}
+
+Node.js v20.14.0
+golden@Hiwas-MacBook films % 
+
+
+
+Then it has this issue in main file of root project directory 
+
+
+
+
+[Nest] 24276  - 06/20/2024, 11:37:28 AM   ERROR [ClientProxy] ENOENT: no such file or directory, open '/Users/golden/Desktop/FilmKRD/film-krd backend/proto/films.proto'
+Error: The invalid .proto definition (file at "/Users/golden/Desktop/FilmKRD/film-krd backend/proto/films.proto" not found)
+    at ClientGrpcProxy.loadProto (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:234:39)
+    at ClientGrpcProxy.createClients (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:211:34)
+    at new ClientGrpcProxy (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:33:33)
+    at Function.create (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-proxy-factory.js:30:24)
+    at ListenersController.assignClientsToProperties (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/listeners-controller.js:98:47)
+    at /Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:52:42
+    at Map.forEach (<anonymous>)
+    at MicroservicesModule.bindClients (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:50:15)
+    at /Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:43:18
+    at ModulesContainer.forEach (<anonymous>)
+
+/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:234
+            const invalidProtoError = new invalid_proto_definition_exception_1.InvalidProtoDefinitionException(err.path);
+                                      ^
+Error: The invalid .proto definition (file at "/Users/golden/Desktop/FilmKRD/film-krd backend/proto/films.proto" not found)
+    at ClientGrpcProxy.loadProto (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:234:39)
+    at ClientGrpcProxy.createClients (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:211:34)
+    at new ClientGrpcProxy (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-grpc.js:33:33)
+    at Function.create (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/client/client-proxy-factory.js:30:24)
+    at ListenersController.assignClientsToProperties (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/listeners-controller.js:98:47)
+    at /Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:52:42
+    at Map.forEach (<anonymous>)
+    at MicroservicesModule.bindClients (/Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:50:15)
+    at /Users/golden/Desktop/FilmKRD/film-krd backend/node_modules/@nestjs/microservices/microservices-module.js:43:18
+    at ModulesContainer.forEach (<anonymous>)
