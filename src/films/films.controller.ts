@@ -1,12 +1,7 @@
 import { Controller, Delete, Get, NotFoundException, Param, Post, Put, Body, ParseIntPipe } from '@nestjs/common';
-
-
-
 import { FilmsService } from './films.service';
 import { CreateFilmDto } from 'src/dto/create-film.dto';
 import { UpdateFilmsDto } from 'src/dto/update-film.dto';
-
-
 
 @Controller('films')
 export class FilmsController {
