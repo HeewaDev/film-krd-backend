@@ -15,12 +15,12 @@ export class FilmsService {
 
 
     async GetAll(){
-        return await this.filmsRepository.GetAll()
+        return await this.filmsRepository.getAll()
     }
 
 
     async GetFilmsById(id: number){
-        return await this.filmsRepository.getbyId(id)
+        return await this.filmsRepository.getById(id)
     }
 
     async CreateFilm(createFilmDto: CreateFilmDto){
@@ -35,15 +35,29 @@ export class FilmsService {
 
         return await this.filmsRepository.update(id, updateFilmDto)
     
+
+
         }
 
 
-    async DeleteFilm(id: number){
+        async DeleteFilm(id: number){
             return await this.filmsRepository.delete(id)
         }
+
+
+//          async searchFilms(query: string): Promise<Film[]> {
+//     return this.filmsRepository
+//       .createQueryBuilder('film')
+//       .where('film.title ILIKE :query', { query: `%${query}%` }) // Search by title
+//       .orWhere('film.genre ILIKE :query', { query: `%${query}%` }) // Search by genre
+//       .getMany();
+//   }
+}
+
+
 
 
         
 
 
-}
+

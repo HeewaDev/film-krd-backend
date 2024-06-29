@@ -10,7 +10,7 @@ export class ShootingLocationRepository {
     async getshootings(){
         const {data, error} = await this.supabaseService
         .getClient()
-        .from('shooting-locations')
+        .from('shooting_locations')
         .select('*')
 
         if(error) throw new Error(error.message)
@@ -21,7 +21,7 @@ export class ShootingLocationRepository {
     async getshootingById(id: number){
         const {data, error} = await this.supabaseService
         .getClient()
-        .from('shooting-locations')
+        .from('shooting_locations')
         .select('*')
         .eq('id', id)
         .single()
@@ -33,7 +33,7 @@ export class ShootingLocationRepository {
         const {data, error} = await this.supabaseService
        
         .getClient()
-        .from('shooting-locations')
+        .from('shooting_locations')
         .insert(createShootingLocationDto)
     
 
@@ -44,7 +44,7 @@ export class ShootingLocationRepository {
     async updateShootingLocation(id: number, updateShootingLocation: UpdateShootingLocationsDto){
         const { data, error} = await this.supabaseService
         .getClient()
-        .from('shooting-locations')
+        .from('shooting_locations')
         .update(updateShootingLocation)
         .eq('id', id)
         if(error) throw new Error(error.message)
@@ -53,7 +53,7 @@ export class ShootingLocationRepository {
     async deleteShootingLocation(id: number){
         const {data, error} = await this.supabaseService
         .getClient()
-        .from('shooting-locations')
+        .from('shooting_locations')
         .delete()
         .eq('id', id)
         if(error) throw new Error(error.message)

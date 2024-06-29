@@ -25,11 +25,7 @@ export class FilmsController {
 
      
 
-     @Get('search')
-     async searchFilms(@Query('q') query: string) {
-       return await this.filmsService.searchFilms(query);
-     }
-
+     
 
 
      @Get(':id')
@@ -63,4 +59,19 @@ export class FilmsController {
         return await this.filmsService.DeleteFilm(id)
      }
 
+     @Get(':query')
+     async searchFilms(@Param('query') query: string) {
+       try {
+         const results = await this.filmsService.searchFilms(query);
+         return results; // Return the search results to the client
+       } catch (error) {
+         throw new Error('Error searching films');
+       }
+     }
+   
+
 }
+
+
+
+
