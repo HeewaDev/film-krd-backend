@@ -9,14 +9,15 @@ import { CrewModule } from './crew/crew.module';
 import { FilmCastsModule } from './film_casts/film_casts.module';
 import { FilmCrewModule } from './film_crew/film_crew.module';
 import { FilmCompaniesModule } from './film_companies/film_companies.module';
-import { FilmLocationModule } from './film_location/shooting_location.module';
+
 import { FilmsModule } from './films/films.module';
 import { NotesModule } from './notes/notes.module';
 import { ShootingLocationsModule } from './shooting_locations/shooting_locations.module';
 import { SupabaseModule } from './service/supabase.module';
+import { MyElasticsearchModule } from './elasticSearch.module';
 
 @Module({
-  imports: [CastsModule,  CompaniesModule, CrewModule, FilmCastsModule, FilmCrewModule, FilmCompaniesModule, FilmLocationModule, FilmsModule, NotesModule, ShootingLocationsModule, SupabaseModule],
+  imports: [CastsModule,  CompaniesModule, CrewModule, FilmCastsModule, FilmCrewModule, FilmCompaniesModule,FilmsModule, NotesModule, ShootingLocationsModule, SupabaseModule, MyElasticsearchModule],
   controllers: [AppController],
   providers: [AppService, SupabaseService, CrewService],
 })

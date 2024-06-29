@@ -7,6 +7,12 @@ async function bootstrap() {
   const supabaseKey = process.env.SUPABASE_SECRET_KEY
 
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.enableCors({
+    origin: 'http://localhost:5173',
+  
+
+  });
+  
+  await app.listen(7000);
 }
 bootstrap();

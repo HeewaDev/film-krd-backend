@@ -2,11 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { FilmsRepository } from './films.repository';
 import { CreateFilmDto } from 'src/dto/create-film.dto';
 import { UpdateFilmsDto } from 'src/dto/update-film.dto';
+import { SupabaseService } from 'src/service/supabase.service';
+import { MyElasticsearchService } from 'src/elasticSearch.service';
 
 @Injectable()
 export class FilmsService {
 
-    constructor(private readonly filmsRepository: FilmsRepository){}
+    constructor(private readonly filmsRepository: FilmsRepository,
+         private readonly supabaseService : SupabaseService,
+         private readonly myElasticSearch: MyElasticsearchService
+    ){}
 
 
     async GetAll(){
@@ -21,6 +26,9 @@ export class FilmsService {
     async CreateFilm(createFilmDto: CreateFilmDto){
         return await this.filmsRepository.create(createFilmDto)
     }
+    async searchFilms(query: string) {
+        return await this.myElasticSearch.searchFilms(query);
+      }
 
 
     async UpdateFilm(id: number, updateFilmDto: UpdateFilmsDto){
