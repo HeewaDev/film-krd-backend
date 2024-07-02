@@ -15,10 +15,9 @@ import { NotesModule } from './notes/notes.module';
 import { ShootingLocationsModule } from './shooting_locations/shooting_locations.module';
 import { SupabaseModule } from './service/supabase.module';
 import { MyElasticsearchModule } from './elasticSearch.module';
-import { SearchModule } from './search/search.module';
 
 @Module({
-  imports: [CastsModule,  CompaniesModule, CrewModule, FilmCastsModule, FilmCrewModule, FilmCompaniesModule,FilmsModule, NotesModule, ShootingLocationsModule, SupabaseModule, MyElasticsearchModule, SearchModule],
+  imports: [CastsModule,  CompaniesModule, CrewModule, FilmCastsModule, FilmCrewModule, FilmCompaniesModule,FilmsModule, NotesModule, ShootingLocationsModule, SupabaseModule, MyElasticsearchModule],
   controllers: [AppController],
   providers: [AppService, SupabaseService, CrewService],
 })
