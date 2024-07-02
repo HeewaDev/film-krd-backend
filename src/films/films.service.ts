@@ -4,13 +4,15 @@ import { CreateFilmDto } from 'src/dto/create-film.dto';
 import { UpdateFilmsDto } from 'src/dto/update-film.dto';
 import { SupabaseService } from 'src/service/supabase.service';
 import { MyElasticsearchService } from 'src/elasticSearch.service';
+import { FilmsSearchRepository } from 'src/search/search.repository';
 
 @Injectable()
 export class FilmsService {
 
     constructor(private readonly filmsRepository: FilmsRepository,
          private readonly supabaseService : SupabaseService,
-         private readonly myElasticSearch: MyElasticsearchService
+         private readonly myElasticSearch: MyElasticsearchService,
+         private readonly filmSearchRepository: FilmsSearchRepository
     ){}
 
 
@@ -26,9 +28,7 @@ export class FilmsService {
     async CreateFilm(createFilmDto: CreateFilmDto){
         return await this.filmsRepository.create(createFilmDto)
     }
-    async searchFilms(query: string) {
-        return await this.myElasticSearch.searchFilms(query);
-      }
+ 
 
 
     async UpdateFilm(id: number, updateFilmDto: UpdateFilmsDto){
@@ -43,6 +43,14 @@ export class FilmsService {
         async DeleteFilm(id: number){
             return await this.filmsRepository.delete(id)
         }
+
+      
+
+        async searchFilms(title: string, genre: string, keywords: string) {
+            return this.filmSearchRepository.findFilms(title, genre, keywords);
+        }
+
+        
 
 
 //          async searchFilms(query: string): Promise<Film[]> {
