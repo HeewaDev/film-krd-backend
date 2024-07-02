@@ -6,9 +6,7 @@ dotenv.config();
 @Injectable()
 @Global()
 export class SupabaseService {
-    rpc(arg0: string, arg1: { sequence: string; value: number; }) {
-        throw new Error("Method not implemented.");
-    }
+    
     private supabase: SupabaseClient;
 
     constructor() {

@@ -9,7 +9,7 @@ import { MyElasticsearchService } from 'src/elasticSearch.service';
 export class FilmsService {
 
     constructor(private readonly filmsRepository: FilmsRepository,
-         private readonly supabaseService : SupabaseService,
+         
          private readonly myElasticSearch: MyElasticsearchService
     ){}
 
