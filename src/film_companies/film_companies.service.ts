@@ -26,7 +26,5 @@ export class FilmCompaniesService {
     return this.filmCompaniesRepository.findByFilmId(filmId);
   }
 
-  async FindAllFilmCompanies (){
-    return await this.filmCompaniesRepository.getFilmCompanies()
-  }
+
 }

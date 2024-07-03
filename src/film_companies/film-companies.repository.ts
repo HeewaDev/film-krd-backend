@@ -4,7 +4,7 @@ import { CreateFilmCompaniesDto } from 'src/dto/create-film-companies.dto';
 import { UpdateFilmCompaniesDto } from 'src/dto/update-film-companies.dto';
 
 @Injectable()
-export class FilmCrewRepository {
+export class FilmCompaniesRepository {
   constructor(private readonly supabaseService: SupabaseService) {}
 
   async findOne(id: number) {

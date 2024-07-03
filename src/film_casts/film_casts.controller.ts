@@ -9,10 +9,7 @@ import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto';
 export class FilmCastsController {
   constructor(private readonly filmCastsService: FilmCastsService) {}
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.filmCastsService.findOne(+id);
-  }
+  
 
   @Get() 
     async findByFilmId(@Query('film_id') filmId: string) {

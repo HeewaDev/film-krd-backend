@@ -8,12 +8,7 @@ export class FilmCrewController {
 
 
     @Get()
-    async GetFilmCrew(){
-        return await this.filmCrewService.findAllCrew()
-    }
-
-    @Get(':id')
-    async GetFilmCrewByID(@Param('id') id:number): Promise<FilmCrew>{
+    async GetFilmCrewByID(@Query('film_id') id:string): Promise<FilmCrew>{
         return this.filmCrewService.findCrewByFilm_id(+id)
     }
 }
