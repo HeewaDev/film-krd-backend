@@ -1,4 +1,12 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateFilmCompaniesDto } from './create-film-companies.dto';
+// update-film-company.dto.ts
+import { IsInt, IsOptional } from 'class-validator';
 
-export class UpdateFilmCompaniesDto extends PartialType(CreateFilmCompaniesDto) {}
+export class UpdateFilmCompanyDto {
+  @IsOptional()
+  @IsInt()
+  readonly film_id?: number;
+
+  @IsOptional()
+  @IsInt()
+  readonly company_id?: number;
+}
