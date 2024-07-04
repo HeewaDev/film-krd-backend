@@ -21,7 +21,7 @@ export class FilmCompaniesController {
   
   }
 
-  @Get(':id')
+  @Post(':id')
 async addCompanyToFilm(@Body() createFilmCompaniesDto: CreateFilmCompaniesDto) { // you can add a company to a film localhost:7000/film_companies/1
   const { film_id, company_id } = createFilmCompaniesDto;
     return this.filmCompaniesService.addCompanyToFilm(film_id, company_id);
