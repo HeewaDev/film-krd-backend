@@ -1,11 +1,12 @@
-import { Delete, Get, Injectable, Post, Put } from "@nestjs/common";
+import { Controller, Delete, Get, Injectable, Post, Put } from "@nestjs/common";
 import { FilmLocationService } from "./film_location.service";
 import { CreateFilmShootingLocationDto } from "src/dto/create-film_shooting_locationDto";
 
+@Controller('film_shooting_locations')
 export class FilmLocationController {
     constructor(private readonly filmLocationService: FilmLocationService){}
 
-
+   
     @Get()
     async getFilmShootingLocations() {
         return await this.filmLocationService.getFilmLocations()
