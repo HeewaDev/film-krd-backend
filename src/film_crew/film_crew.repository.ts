@@ -27,8 +27,7 @@ export class CrewRepository {
         .getClient()
         .from('film_crew')
         .select('*')
-        .eq('id', id)
-        .single();
+        .eq('film_id', id)
 
         if (error) throw error;
 
