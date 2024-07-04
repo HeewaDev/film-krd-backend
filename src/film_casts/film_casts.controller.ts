@@ -1,6 +1,6 @@
 // film-casts.controller.ts
 
-import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
 import { FilmCastsService } from './film_casts.service'; 
 import { CreateFilmCastDto } from 'src/dto/create-film-casts.dto'; 
 import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto'; 
@@ -11,8 +11,8 @@ export class FilmCastsController {
 
   
 
-  @Get() 
-    async findByFilmId(@Query('film_id') filmId: string) {
+  @Get(':film_id') 
+    async findByFilmId(@Param('film_id', ParseIntPipe) filmId: string) {
 
         return this.filmCastsService.findByFilmId(+filmId);
     }
@@ -30,4 +30,9 @@ export class FilmCastsController {
   async remove(@Param('id') id: string) {
     return this.filmCastsService.remove(+id);
   }
+
+    @Get()
+    async findAll() {
+        return this.filmCastsService.findAll();
+    }
 }
