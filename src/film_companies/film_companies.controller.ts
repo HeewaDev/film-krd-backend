@@ -23,36 +23,44 @@ export class FilmCompaniesController {
 
   @Post()
   async create(@Body() createFilmCompanyDto: CreateFilmCompaniesDto) {
-    console.log('Creating a new film company');
-    try {
-      return await this.filmCompaniesService.create(createFilmCompanyDto);
-    } catch (error) {
-      console.error('Error creating film company:', error);
-      throw new Error('Error creating film company');
-    }
+    return this.filmCompaniesService.create(createFilmCompanyDto);
   }
 
+ 
+
   @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateFilmCompanyDto: UpdateFilmCompanyDto) {
-    console.log(`Updating film company with ID: ${id}`);
-    try {
-      return await this.filmCompaniesService.update(id, updateFilmCompanyDto);
-    } catch (error) {
-      console.error(`Error updating film company with ID ${id}:`, error);
-      throw new Error('Error updating film company');
-    }
+  async update(
+    @Param('id') id: number,
+    @Body() updateFilmCompanyDto: UpdateFilmCompanyDto,
+  ) {
+    return this.filmCompaniesService.update(id, updateFilmCompanyDto);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    console.log(`Deleting film company with ID: ${id}`);
-    try {
-      return await this.filmCompaniesService.delete(id);
-    } catch (error) {
-      console.error(`Error deleting film company with ID ${id}:`, error);
-      throw new Error('Error deleting film company');
-    }
+  async delete(@Param('id') id: number) {
+    return this.filmCompaniesService.delete(id);
   }
+
 }
 
 
+
+    
+
+
+
+
+  // @Post()
+  // async create(@Body() createFilmCompaniesDto: CreateFilmCompaniesDto): Promise<FilmCompany> {
+  //   return this.filmCompaniesService.create(createFilmCompaniesDto);
+  // }
+
+  // @Put(':id')
+  // async update(@Param('id') id: string, @Body() updateFilmCompaniesDto: CreateFilmCompaniesDto): Promise<FilmCompany> {
+  //   return this.filmCompaniesService.update(+id, updateFilmCompaniesDto);
+  // }
+
+  // @Delete(':id')
+  // async remove(@Param('id') id: string): Promise<void> {
+  //   return this.filmCompaniesService.remove(+id);
+  // }

@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+// film-companies.service.ts
+
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { FilmCompaniesRepository } from './film-companies.repository';
 import { CreateFilmCompaniesDto } from 'src/dto/create-film-companies.dto';
 import { UpdateFilmCompanyDto } from 'src/dto/update-film-companies.dto';
@@ -8,43 +10,62 @@ export class FilmCompaniesService {
   constructor(private readonly filmCompaniesRepository: FilmCompaniesRepository) {}
 
   async findOne(id: number) {
-    return this.filmCompaniesRepository.findOne(id);
+    try {
+      const filmCompany = await this.filmCompaniesRepository.findOne(id);
+      if (!filmCompany) throw new NotFoundException(`Film company with ID ${id} not found`);
+      return filmCompany;
+    } catch (error) {
+      console.error(`Error finding film company with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error finding film company');
+    }
   }
 
-  
-  async addCompanyToFilm(film_id: number, company_id: number) {
-    return this.filmCompaniesRepository.addCompanyToFilm(film_id, company_id);
+  async create(createFilmCompaniesDto: CreateFilmCompaniesDto) {
+    try {
+      return await this.filmCompaniesRepository.create(createFilmCompaniesDto);
+    } catch (error) {
+      console.error('Error creating film company:', error);
+      throw new InternalServerErrorException('Error creating film company');
+    }
   }
 
-
-  async getCompaniesByFilmId(film_id: number) {
-    return this.filmCompaniesRepository.getCompaniesByFilmId(film_id);
+  async update(id: number, updateFilmCompaniesDto: UpdateFilmCompanyDto) {
+    try {
+      const updatedFilmCompany = await this.filmCompaniesRepository.update(id, updateFilmCompaniesDto);
+      if (!updatedFilmCompany) throw new NotFoundException(`Film company with ID ${id} not found`);
+      return updatedFilmCompany;
+    } catch (error) {
+      console.error(`Error updating film company with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error updating film company');
+    }
   }
 
-  async updateCompanyInFilm(updateFilmCompanyDto: UpdateFilmCompanyDto) {
-    const { film_id, company_id, new_company_id } = updateFilmCompanyDto;
-    return this.filmCompaniesRepository.updateCompanyInFilm(film_id, company_id, new_company_id);
+  async delete(id: number) {
+    try {
+      const result = await this.filmCompaniesRepository.delete(id);
+      if (!result) throw new NotFoundException(`Film company with ID ${id} not found`);
+      return result;
+    } catch (error) {
+      console.error(`Error deleting film company with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error deleting film company');
+    }
   }
 
-  async removeCompanyFromFilm(film_id: number, company_id: number) {
-    return this.filmCompaniesRepository.removeCompanyFromFilm(film_id, company_id);
-
+  async findByFilmId(filmId: number) {
+    try {
+      return await this.filmCompaniesRepository.findByFilmId(filmId);
+    } catch (error) {
+      console.error(`Error finding film companies by film ID ${filmId}:`, error);
+      throw new InternalServerErrorException('Error finding film companies');
+    }
   }
-
-  
-
-
-
-  async findByFilmId(film_id: number) {
-    return this.filmCompaniesRepository.findByFilmId(film_id);
-  }
-
 
   async getFilmCompanies() {
-    return this.filmCompaniesRepository.getFilmCompanies();
+    try {
+      return await this.filmCompaniesRepository.getFilmCompanies();
+    } catch (error) {
+      console.error('Error retrieving film companies:', error);
+      throw new InternalServerErrorException('Error retrieving film companies');
+    }
   }
-
-
-
-
 }
