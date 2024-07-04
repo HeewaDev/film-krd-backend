@@ -13,6 +13,10 @@ export class FilmCastsService {
     return this.filmCastsRepository.findOne(id);
   }
 
+  async findAll() {
+    return this.filmCastsRepository.findAll();
+  }
+
   async create(createFilmCastDto: CreateFilmCastDto) {
     return this.filmCastsRepository.create(createFilmCastDto);
   }
