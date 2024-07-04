@@ -1,22 +1,13 @@
-import { Injectable } from '@nestjs/common';
+// film-casts.repository.ts
+
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { SupabaseService } from 'src/service/supabase.service';
 import { CreateFilmCastDto } from 'src/dto/create-film-casts.dto';
-import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto'; 
+import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto';
 
 @Injectable()
 export class FilmCastsRepository {
   constructor(private readonly supabaseService: SupabaseService) {}
-
-  async findAll() {
-    const { data, error } = await this.supabaseService
-      .getClient()
-      .from('film_casts')
-      .select('*');
-
-    if (error) throw error;
-
-    return data;
-  }
 
   async findOne(id: number) {
     const { data, error } = await this.supabaseService
@@ -26,7 +17,10 @@ export class FilmCastsRepository {
       .eq('id', id)
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error(`Error finding film cast with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error finding film cast');
+    }
 
     return data;
   }
@@ -35,51 +29,61 @@ export class FilmCastsRepository {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
-      .insert(createFilmCastDto);
+      .insert(createFilmCastDto)
+      .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error creating film cast:', error);
+      throw new InternalServerErrorException('Error creating film cast');
+    }
 
     return data;
   }
 
-  async update(film_id: number, cast_id: number, updateFilmCastDto: UpdateFilmCastDto) {
+  async update(id: number, updateFilmCastDto: UpdateFilmCastDto) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .update(updateFilmCastDto)
-      .eq('film_id', film_id)
-      .eq('cast_id', cast_id);
+      .eq('id', id)
+      .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error(`Error updating film cast with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error updating film cast');
+    }
 
     return data;
   }
 
-  async remove(film_id: number, cast_id: number) {
+  async remove(id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .delete()
-      .eq('film_id', film_id)
-      .eq('cast_id', cast_id);
+      .eq('id', id)
+      .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error(`Error deleting film cast with ID ${id}:`, error);
+      throw new InternalServerErrorException('Error deleting film cast');
+    }
 
     return data;
   }
 
-  
-  async findByFilmId(film_id: number) {
+  async findByFilmId(filmId: number) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .select('*')
-      .eq('film_id', film_id);
+      .eq('film_id', filmId);
 
-    if (error) throw error;
+    if (error) {
+      console.error(`Error finding film casts by film ID ${filmId}:`, error);
+      throw new InternalServerErrorException('Error finding film casts');
+    }
 
     return data;
   }
 }
-  
-
