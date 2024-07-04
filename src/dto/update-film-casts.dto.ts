@@ -1,4 +1,9 @@
-import { PartialType } from "@nestjs/mapped-types"
-import { CreateFilmCastDto } from "./create-film-casts.dto"
 
-export class UpdateFilmCastDto extends PartialType(CreateFilmCastDto) {};
+import { IsNumber } from "class-validator";
+
+export class UpdateFilmCastDto {
+@IsNumber()
+    film_id: number;
+    cast_id: number;
+    new_cast_id: number;
+}
