@@ -42,39 +42,44 @@ export class FilmCastsRepository {
     return data;
   }
 
-  async update(id: number, updateFilmCastDto: UpdateFilmCastDto) {
+  async update(film_id: number, cast_id: number, updateFilmCastDto: UpdateFilmCastDto) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .update(updateFilmCastDto)
-      .eq('id', id);
+      .eq('film_id', film_id)
+      .eq('cast_id', cast_id);
 
     if (error) throw error;
 
     return data;
   }
 
-  async remove(id: number) {
+  async remove(film_id: number, cast_id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .delete()
-      .eq('id', id);
+      .eq('film_id', film_id)
+      .eq('cast_id', cast_id);
 
     if (error) throw error;
 
     return data;
   }
 
-  async findByFilmId(filmId: number) {
+  
+  async findByFilmId(film_id: number) {
     const { data, error } = await this.supabaseService
       .getClient()
       .from('film_casts')
       .select('*')
-      .eq('film_id', filmId);
+      .eq('film_id', film_id);
 
     if (error) throw error;
 
     return data;
   }
 }
+  
+
