@@ -1,5 +1,3 @@
-// film-casts.repository.ts
-
 import { Injectable } from '@nestjs/common';
 import { SupabaseService } from 'src/service/supabase.service';
 import { CreateFilmCastDto } from 'src/dto/create-film-casts.dto';
@@ -8,6 +6,17 @@ import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto';
 @Injectable()
 export class FilmCastsRepository {
   constructor(private readonly supabaseService: SupabaseService) {}
+
+  async findAll() {
+    const { data, error } = await this.supabaseService
+      .getClient()
+      .from('film_casts')
+      .select('*');
+
+    if (error) throw error;
+
+    return data;
+  }
 
   async findOne(id: number) {
     const { data, error } = await this.supabaseService
@@ -57,7 +66,6 @@ export class FilmCastsRepository {
     return data;
   }
 
-
   async findByFilmId(filmId: number) {
     const { data, error } = await this.supabaseService
       .getClient()
@@ -69,5 +77,4 @@ export class FilmCastsRepository {
 
     return data;
   }
-  
 }
