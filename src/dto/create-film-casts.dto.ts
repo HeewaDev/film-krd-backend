@@ -1,11 +1,14 @@
-import { IsString, IsOptional, IsEnum, IsArray, ValidateNested, IsEmail, IsPhoneNumber } from "class-validator";
-import { Type, Transform } from "class-transformer";
+import { IsNumber } from "class-validator";
+
 
 
 
 
 export class CreateFilmCastDto {
   
-    @IsString()
-    role: string;
+    @IsNumber()
+    film_id: number;
+    cast_id: number;
+      
+      
 }

@@ -9,4 +9,14 @@ export class UpdateFilmCompanyDto {
   @IsOptional()
   @IsInt()
   readonly company_id?: number;
+
+    
+    @IsInt()
+    readonly new_company_id: number;
+
+ 
+    
+    
+  
+  
 }

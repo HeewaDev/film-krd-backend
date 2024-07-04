@@ -1,52 +1,38 @@
 // film-casts.controller.ts
 
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, ParseIntPipe } from '@nestjs/common';
-import { FilmCastsService } from './film_casts.service'; 
-import { CreateFilmCastDto } from 'src/dto/create-film-casts.dto'; 
-import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto'; 
+import { FilmCastsService } from './film_casts.service';
+import { CreateFilmCastDto } from 'src/dto/create-film-casts.dto';
+import { UpdateFilmCastDto } from 'src/dto/update-film-casts.dto';
 
 @Controller('film_casts')
 export class FilmCastsController {
-  constructor(private readonly filmCastsService: FilmCastsService) {}
+    constructor(private readonly filmCastsService: FilmCastsService) { }
 
-  @Get()
-  async findByFilmId(@Query('film_id', ParseIntPipe) filmId: number) {
-    console.log(`Searching for casts with film ID: ${filmId}`);
-    try {
-      return await this.filmCastsService.findByFilmId(filmId);
-    } catch (error) {
-      console.error('Error finding film casts:', error);
-      throw new Error('Error finding film casts');
-    }
-  }
 
-  @Post()
-  async create(@Body() createFilmCastDto: CreateFilmCastDto) {
-    try {
-      return await this.filmCastsService.create(createFilmCastDto);
-    } catch (error) {
-      console.error('Error creating film cast:', error);
-      throw new Error('Error creating film cast');
-    }
-  }
 
-  @Put(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateFilmCastDto: UpdateFilmCastDto) {
-    try {
-      return await this.filmCastsService.update(id, updateFilmCastDto);
-    } catch (error) {
-      console.error(`Error updating film cast with ID ${id}:`, error);
-      throw new Error('Error updating film cast');
-    }
-  }
+    @Get(':film_id')
+    async findByFilmId(@Param('film_id', ParseIntPipe) filmId: string) {
 
-  @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    try {
-      return await this.filmCastsService.remove(id);
-    } catch (error) {
-      console.error(`Error deleting film cast with ID ${id}:`, error);
-      throw new Error('Error deleting film cast');
+        return this.filmCastsService.findByFilmId(+filmId);
     }
-  }
+    @Post()
+    async create(@Body() createFilmCastDto: CreateFilmCastDto) {
+        return this.filmCastsService.create(createFilmCastDto);
+    }
+
+    @Put(':id')
+    async update(@Param('id', ParseIntPipe) film_id: number, @Param('id', ParseIntPipe) cast_id: number, @Body() updateFilmCastDto: UpdateFilmCastDto) {
+        return this.filmCastsService.update(film_id, cast_id, updateFilmCastDto);
+    }
+
+    @Delete(':id')
+    async remove(@Param('id') film_id: number, @Param('cast_id') cast_id: number) {
+        return this.filmCastsService.remove(film_id, cast_id);
+    }
+
+    @Get()
+    async findAll() {
+        return this.filmCastsService.findAll();
+    }
 }
