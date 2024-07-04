@@ -16,17 +16,17 @@ export class FilmCrewController {
 
 
     @Post()
-    async addCrewToFilm(@Body() createFilmCrewDto: CreateFilmCrewDto) {
+    async addCrewToFilm(@Body() createFilmCrewDto: CreateFilmCrewDto) { // you can add a crew to a film
       return this.filmCrewService.addCrewToFilm(createFilmCrewDto.film_id, createFilmCrewDto.crew_id);
     }
   
     @Get(':film_id')
-    async getCrewByFilmId(@Param('film_id') film_id: number) {
+    async getCrewByFilmId(@Param('film_id') film_id: number) { // you can get all crew in a film by film_id
       return this.filmCrewService.findCrewByFilm_id(film_id);
     }
   
     @Put()
-    async updateCrewInFilm(@Body() updateFilmCrewDto: UpdateFilmCrewDto) {
+    async updateCrewInFilm(@Body() updateFilmCrewDto: UpdateFilmCrewDto) { // you can update a crew in a film
       return this.filmCrewService.UpdateCrewInFilm(
         updateFilmCrewDto.film_id,
         updateFilmCrewDto.crew_id,
@@ -35,7 +35,7 @@ export class FilmCrewController {
     }
   
     @Delete()
-    async removeCrewFromFilm(@Body() createFilmCrewDto: CreateFilmCrewDto) {
+    async removeCrewFromFilm(@Body() createFilmCrewDto: CreateFilmCrewDto) { // you can remove a crew from a film
       return this.filmCrewService.removeCrewFromFilm(createFilmCrewDto.film_id, createFilmCrewDto.crew_id);
     }
 }
