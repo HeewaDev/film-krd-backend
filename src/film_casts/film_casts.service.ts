@@ -21,12 +21,12 @@ export class FilmCastsService {
     return this.filmCastsRepository.create(createFilmCastDto);
   }
 
-  async update(id: number, updateFilmCastDto: UpdateFilmCastDto) {
-    return this.filmCastsRepository.update(id, updateFilmCastDto);
+  async update(film_id: number, cast_id: number, updateFilmCastDto: UpdateFilmCastDto) {
+    return this.filmCastsRepository.update(film_id, cast_id, updateFilmCastDto);
   }
 
-  async remove(id: number) {
-    return this.filmCastsRepository.remove(id);
+  async remove(film_id: number, cast_id: number) {
+    return this.filmCastsRepository.remove(film_id, cast_id);
   }
   async findByFilmId(filmId: number) {
     return this.filmCastsRepository.findByFilmId(filmId);
