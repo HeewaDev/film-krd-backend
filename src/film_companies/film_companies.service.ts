@@ -11,30 +11,30 @@ export class FilmCompaniesService {
     return this.filmCompaniesRepository.findOne(id);
   }
 
-  async CreateFilm(createFilmCompaniesDto: CreateFilmCompaniesDto) {
-    return this.filmCompaniesRepository.create(createFilmCompaniesDto);
+  
+  async addCompanyToFilm(film_id: number, company_id: number) {
+    return this.filmCompaniesRepository.addCompanyToFilm(film_id, company_id);
   }
 
 
-  async UpdateFilm(id: number, updateFilmCompaniesDto: UpdateFilmCompanyDto) {
-    return this.filmCompaniesRepository.update(id, updateFilmCompaniesDto);
+  async getCompaniesByFilmId(film_id: number) {
+    return this.filmCompaniesRepository.getCompaniesByFilmId(film_id);
   }
 
-
-  async DeleteFilm(id: number) {
-    return this.filmCompaniesRepository.delete(id);
+  async updateCompanyInFilm(updateFilmCompanyDto: UpdateFilmCompanyDto) {
+    const { film_id, company_id, new_company_id } = updateFilmCompanyDto;
+    return this.filmCompaniesRepository.updateCompanyInFilm(film_id, company_id, new_company_id);
   }
-  // async create(createFilmCompaniesDto: CreateFilmCompaniesDto) {
-  //   return this.filmCompaniesRepository.create(createFilmCompaniesDto);
-  // }
 
-  // async update(id: number, updateFilmCompaniesDto: UpdateFilmCompaniesDto) {
-  //   return this.filmCompaniesRepository.update(id, updateFilmCompaniesDto);
-  // }
+  async removeCompanyFromFilm(film_id: number, company_id: number) {
+    return this.filmCompaniesRepository.removeCompanyFromFilm(film_id, company_id);
 
-  // async remove(id: number) {
-  //   return this.filmCompaniesRepository.remove(id);
-  // }
+  }
+
+  
+
+
+
   async findByFilmId(film_id: number) {
     return this.filmCompaniesRepository.findByFilmId(film_id);
   }
