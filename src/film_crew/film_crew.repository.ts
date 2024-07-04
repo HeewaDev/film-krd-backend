@@ -35,57 +35,52 @@ export class CrewRepository {
       return data;
     } 
   
-
-  async create(createCrewDto: CreateCrewDto) {
-    try {
+    async addCrewToFilm(film_id: number, crew_id: number) {  // you can add a crew to a film
       const { data, error } = await this.supabaseService
         .getClient()
         .from('film_crew')
-        .insert(createCrewDto);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
+        .insert({ film_id, crew_id });
+  
+      if (error) throw error;
+  
       return data;
-    } catch (error) {
-      throw new Error('Failed to create film crew');
     }
-  }
-
-  async update(id: number, updateCrewDto: UpdateCrewDto) {
-    try {
+  
+    async getCrewByFilmId(film_id: number) {
       const { data, error } = await this.supabaseService
         .getClient()
         .from('film_crew')
-        .update(updateCrewDto)
-        .eq('id', id);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
+        .select('*')
+        .eq('film_id', film_id);
+  
+      if (error) throw error;
+  
       return data;
-    } catch (error) {
-      throw new Error('Failed to update film crew');
     }
-  }
-
-  async delete(id: number) {
-    try {
-      const { error } = await this.supabaseService
+  
+    async updateCrewInFilm(film_id: number, crew_id: number, new_crew_id: number) { // you can update a crew in a film
+      const { data, error } = await this.supabaseService
+        .getClient()
+        .from('film_crew')
+        .update({ crew_id: new_crew_id })
+        .eq('film_id', film_id)
+        .eq('crew_id', crew_id);
+  
+      if (error) throw error;
+  
+      return data;
+    }
+  
+    async removeCrewFromFilm(film_id: number, crew_id: number) { // you can remove a crew from a film
+      const { data, error } = await this.supabaseService
         .getClient()
         .from('film_crew')
         .delete()
-        .eq('id', id);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      return { success: true };
-    } catch (error) {
-      throw new Error('Failed to delete film crew');
+        .eq('film_id', film_id)
+        .eq('crew_id', crew_id);
+  
+      if (error) throw error;
+  
+      return data;
     }
-  }
 }
