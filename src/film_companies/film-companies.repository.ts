@@ -32,100 +32,56 @@ export class FilmCompaniesRepository {
 
     }
   
-
-  async create(createFilmCompaniesDto: CreateFilmCompaniesDto) {
-    const {film_id, company_id} = createFilmCompaniesDto;
-    const supabase  = this.supabaseService.getClient();
-
-
-    const { data: film, error: filmError } = await supabase
-      .from('films')
-      .select('*')
-      .eq('id', film_id)
-      .single();
-
-    if (filmError || !film) {
-      throw new NotFoundException(`Film with ID ${film_id} not found`);
+    async addCompanyToFilm(film_id: number, company_id: number) {
+      const { data, error } = await this.supabaseService
+        .getClient()
+        .from('film_companies')
+        .insert({ film_id, company_id });
+  
+      if (error) throw error;
+  
+      return data;
     }
-
-    const { data: company, error: companyError } = await supabase
-      .from('companies')
-      .select('*')
-      .eq('id', company_id)
-      .single();
-
-    if (companyError || !company) {
-      throw new NotFoundException(`Company with ID ${company_id} not found`);
-    }
-
-    const { data: filmCompany, error: filmCompanyError } = await supabase
-      .from('film_companies')
-      .insert([{ film_id: film_id, company_id: company_id }]);
-
-    if (filmCompanyError) {
-      throw new Error(filmCompanyError.message);
-    }
-
-    return filmCompany;
-  }
-
-
-
-  async update(id: number, updateFilmCompanyDto: UpdateFilmCompanyDto): Promise<any> {
-    const supabase = this.supabaseService.getClient();
-
-    if (updateFilmCompanyDto.film_id) {
-      const { data: film, error: filmError } = await supabase
-        .from('films')
+  
+    async getCompaniesByFilmId(film_id: number) {
+      const { data, error } = await this.supabaseService
+        .getClient()
+        .from('film_companies')
         .select('*')
-        .eq('id', updateFilmCompanyDto.film_id)
-        .single();
-
-      if (filmError || !film) {
-        throw new NotFoundException(`Film with ID ${updateFilmCompanyDto.film_id} not found`);
-      }
+        .eq('film_id', film_id);
+  
+      if (error) throw error;
+  
+      return data;
+    }
+  
+    async updateCompanyInFilm(film_id: number, company_id: number, new_company_id: number) {
+      
+      const { data, error } = await this.supabaseService
+        .getClient()
+        .from('film_companies')
+        .update({ company_id: new_company_id })
+        .eq('film_id', film_id)
+        .eq('company_id', company_id);
+  
+      if (error) throw error;
+  
+      return data;
     }
 
-    if (updateFilmCompanyDto.company_id) {
-      const { data: company, error: companyError } = await supabase
-        .from('companies')
-        .select('*')
-        .eq('id', updateFilmCompanyDto.company_id)
-        .single();
-
-      if (companyError || !company) {
-        throw new NotFoundException(`Company with ID ${updateFilmCompanyDto.company_id} not found`);
-      }
+  
+    async removeCompanyFromFilm(film_id: number, company_id: number) {
+      const { data, error } = await this.supabaseService
+        .getClient()
+        .from('film_companies')
+        .delete()
+        .eq('film_id', film_id)
+        .eq('company_id', company_id);
+  
+      if (error) throw error;
+  
+      return data;
     }
-
-    const { data: filmCompany, error: filmCompanyError } = await supabase
-      .from('film_companies')
-      .update(updateFilmCompanyDto)
-      .eq('id', id);
-
-    if (filmCompanyError) {
-      throw new Error(filmCompanyError.message);
-    }
-
-    return filmCompany;
-  }
-
-
-
-  async delete(id: number): Promise<any> {
-    const supabase = this.supabaseService.getClient();
-
-    const { data: filmCompany, error: filmCompanyError } = await supabase
-      .from('film_companies')
-      .delete()
-      .eq('id', id);
-
-    if (filmCompanyError) {
-      throw new Error(filmCompanyError.message);
-    }
-
-    return filmCompany;
-  }
 
 
   async findByFilmId(film_id: number) {
