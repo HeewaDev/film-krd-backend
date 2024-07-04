@@ -15,29 +15,31 @@ export class FilmCompaniesController {
 
   @Get(':film_id')
   async findByFilmId(@Param('film_id', ParseIntPipe) film_id: number) {
-    console.log('Backend Searching for companies with film ID:', film_id); // This will log to the console
+    console.log('Backend Searching for companies with film ID:', film_id); // localhost:7000/film_companies/1
     
     return this.filmCompaniesService.findByFilmId(film_id);
   
   }
 
-
-  @Post()
-  async create(@Body() createFilmCompanyDto: CreateFilmCompaniesDto) {
-    return this.filmCompaniesService.CreateFilm(createFilmCompanyDto);
+  @Get(':id')
+async addCompanyToFilm(@Body() createFilmCompaniesDto: CreateFilmCompaniesDto) { // you can add a company to a film localhost:7000/film_companies/1
+  const { film_id, company_id } = createFilmCompaniesDto;
+    return this.filmCompaniesService.addCompanyToFilm(film_id, company_id);
   }
+
+ 
 
   @Put(':id')
-  async update(
-    @Param('id') id: number,
+  async update(    
+    @Param('id') film_id: number, company_id: number, new_company_id: number, // localhost:7000/film_companies/1
     @Body() updateFilmCompanyDto: UpdateFilmCompanyDto,
   ) {
-    return this.filmCompaniesService.UpdateFilm(id, updateFilmCompanyDto);
+    return this.filmCompaniesService.updateCompanyInFilm(updateFilmCompanyDto);
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: number) {
-    return this.filmCompaniesService.DeleteFilm(id);
+  @Delete(':id') // localhost:7000/film_companies/1
+  async delete(@Param('id') film_id: number, @Param('id') company_id: number){
+    return this.filmCompaniesService.removeCompanyFromFilm( film_id, company_id);
   }
 
 }
